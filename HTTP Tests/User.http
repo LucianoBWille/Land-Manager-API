@@ -1,0 +1,32 @@
+@url=http://localhost:8080
+
+@token=asdhkbn
+
+### Save User
+POST {{url}}/users
+Content-Type: application/json
+
+{
+    "name": "Ana da Silva",
+    "email": "ana@gmail.com",
+    "password": "1234"
+}
+
+### Get all users
+GET {{url}}/users
+
+### Get user by ID
+GET {{url}}/users/7febde10-6244-450f-a346-b4066d83e367
+
+### Update user
+PUT {{url}}/users/7febde10-6244-450f-a346-b4066d83e367
+Content-Type: application/json
+
+{
+    "name": "Ana da Silva",
+    "email": "ana-update@algo.com",
+    "password": "1234"
+}
+
+### Delete user by ID
+DELETE {{url}}/users/f82ffdd2-4600-4a91-89fd-e90df0eddf31
