@@ -1,31 +1,36 @@
 package com.lucianobwille.landmanagerapi.models;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ManyToAny;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Entity 
-@Table(name = "tb_user")
+@Entity
+@Table(name = "tb_land")
 @NamedQueries({
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name LIKE :name"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email LIKE :email")
+    @NamedQuery(name = "Land.findByName", query = "SELECT l FROM Land l WHERE l.name LIKE :name"),
+    @NamedQuery(name = "Land.findByOwner", query = "SELECT l FROM Land l WHERE l.owner.id = :ownerId")
 })
-public class User {
+public class Land {
   @Id
   @Type(type = "org.hibernate.type.UUIDCharType")
   private UUID id;
@@ -33,20 +38,17 @@ public class User {
   @Column(name = "name", nullable = false, length = 100)
   private String name;
 
-  @Column(name = "email", nullable = false, length = 100)
-  private String email;
+  @Column(name = "landPoligonString", nullable = false, length = 1000)
+  private String landPoligonString;
 
-  @Column(name = "password", nullable = false, length = 100)
-  private String password;
-
-  @OneToMany(mappedBy = "owner")
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Set<Land> lands;
+  @ManyToOne
+  @JoinColumn(name = "owner_id", nullable = false)
+  private User owner;
 
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  public User() {
+  public Land() {
     this.id = UUID.randomUUID();
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();

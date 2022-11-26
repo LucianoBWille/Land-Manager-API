@@ -1,5 +1,32 @@
-@URL=http://localhost:3000
+@url=http://localhost:8080
 
-@token=jasndk
+@token=asdhkbn
 
-### Get all Lands
+### Save Land
+POST {{url}}/lands
+Content-Type: application/json
+
+{
+    "name": "Land 1",
+    "ownerId": "675798bf-30a2-4fa6-b786-c3f7cf2e33ea",
+    "landPoligonString": "POLYGON ((-122.4312973022461 37.7739726025641, -122.4312973022461 37.7749726025641, -122.4302973022461 37.7749726025641, -122.4302973022461 37.7739726025641, -122.4312973022461 37.7739726025641))"
+}
+
+### Get all lands
+GET {{url}}/lands
+
+### Get land by ID
+GET {{url}}/lands/7febde10-6244-450f-a346-b4066d83e367
+
+### Update land
+PUT {{url}}/lands/7febde10-6244-450f-a346-b4066d83e367
+Content-Type: application/json
+
+{
+    "name": "Ana da Silva",
+    "email": "ana-update@algo.com",
+    "password": "1234"
+}
+
+### Delete land by ID
+DELETE {{url}}/lands/f82ffdd2-4600-4a91-89fd-e90df0eddf31
