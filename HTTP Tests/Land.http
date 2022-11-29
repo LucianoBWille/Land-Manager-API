@@ -1,5 +1,34 @@
-@URL=http://localhost:3000
+@url=http://localhost:8080
 
-@token=jasndk
+@token=asdhkbn
 
-### Get all Lands
+### Save Land
+POST {{url}}/lands
+Content-Type: application/json
+
+{
+    "name": "Land 3",
+    "ownerId": "e75adc72-9368-44ac-b309-dda372ab8600",
+    "landPoligonString": "POLYGON ((-122.4312973022461 37.7739726025641, -122.4312973022461 37.7749726025641, -122.4302973022461 37.7749726025641, -122.4302973022461 37.7739726025641, -122.4312973022461 37.7739726025641))"
+}
+
+### Get all lands
+GET {{url}}/lands
+
+### Get land by ID
+GET {{url}}/lands/6a727779-fa42-4f38-85e6-1d5ab95a094b
+
+### Update land
+PUT {{url}}/lands/6a727779-fa42-4f38-85e6-1d5ab95a094b
+Content-Type: application/json
+
+{
+    "name": "Land 1 Updated",
+    "ownerId": "e75adc72-9368-44ac-b309-dda372ab8600",
+    "landPoligonString": "POLYGON ((-122.4312973022461 37.7739726025641, -122.4312973022461 37.7749726025641, -122.4302973022461 37.7749726025641, -122.4302973022461 37.7739726025641, -122.4312973022461 37.7739726025641))",
+    "createdAt": "2024-11-27T00:19:33.931381994",
+    "updatedAt": "2024-11-27T00:19:33.931381994"
+}
+
+### Delete land by ID
+DELETE {{url}}/lands/33d3f592-8f84-4105-b0b8-2a2f73aa8fde

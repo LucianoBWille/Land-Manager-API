@@ -17,13 +17,13 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Entity 
-@Table(name = "tb_user")
+@Entity
+@Table(name = "tb_land")
 @NamedQueries({
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name LIKE :name"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email LIKE :email")
+    @NamedQuery(name = "Land.findByName", query = "SELECT l FROM Land l WHERE l.name LIKE :name"),
+    @NamedQuery(name = "Land.findByOwner", query = "SELECT l FROM Land l WHERE l.ownerId = :ownerId")
 })
-public class User {
+public class Land {
   @Id
   @Type(type = "org.hibernate.type.UUIDCharType")
   private UUID id;
@@ -31,16 +31,18 @@ public class User {
   @Column(name = "name", nullable = false, length = 100)
   private String name;
 
-  @Column(name = "email", nullable = false, length = 100)
-  private String email;
+  @Column(name = "landPoligonString", nullable = false, length = 1000)
+  private String landPoligonString;
 
-  @Column(name = "password", nullable = false, length = 100)
-  private String password;
+  @Column(name = "ownerId", nullable = false)
+  @Type(type = "org.hibernate.type.UUIDCharType")
+  // @JsonIgnore
+  private UUID ownerId;
 
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  public User() {
+  public Land() {
     this.id = UUID.randomUUID();
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
