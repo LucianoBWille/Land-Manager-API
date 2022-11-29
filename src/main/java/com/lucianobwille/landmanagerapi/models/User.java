@@ -1,7 +1,6 @@
 package com.lucianobwille.landmanagerapi.models;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -9,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -38,10 +36,6 @@ public class User {
 
   @Column(name = "password", nullable = false, length = 100)
   private String password;
-
-  @OneToMany(mappedBy = "owner")
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Set<Land> lands;
 
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

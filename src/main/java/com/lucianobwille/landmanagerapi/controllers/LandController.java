@@ -65,23 +65,36 @@ public class LandController {
   }
 
   @PostMapping
-  public Land save(@RequestBody LandDTO landDTO) {
+  public ResponseEntity<Object> save(@RequestBody LandDTO landDTO) {
     Land land = new Land();
 
-    System.out.println("LandDTO => " + landDTO);
+    if(Strings.isEmpty(landDTO.getOwnerId())){
+      return ResponseEntity.badRequest().body("OwnerId is required");
+    }
 
-    UUID ownerId = UUID.fromString(landDTO.getOwnerId());
+    // validate UUID
+    UUID ownerId;
+    try {
+      ownerId = UUID.fromString(landDTO.getOwnerId());
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body("Invalid ID format");
+    }
 
     Optional<User> owner = userRepository.findById(ownerId);
+
+    if(!owner.isPresent()){
+      return ResponseEntity.badRequest().body("No owner found");
+    }
+
     BeanUtils.copyProperties(landDTO, land);
-    land.setOwner(owner.get());
+    land.setOwnerId(owner.get().getId());
 
     LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
 
     land.setCreatedAt(now);
     land.setUpdatedAt(now);
 
-    return landRepository.save(land);
+    return ResponseEntity.ok(landRepository.save(land));
   }
 
   @PutMapping("{id}")
