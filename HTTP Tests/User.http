@@ -15,6 +15,18 @@ Content-Type: application/json
 ### Get all users
 GET {{url}}/users
 
+### Get all users
+GET {{url}}/users?name=Ana
+
+### Get all users
+POST {{url}}/users/login
+Content-Type: application/json
+
+{
+    "name": "Ana da Silva",
+    "password": "1234"
+}
+
 ### Get user by ID
 GET {{url}}/users/7febde10-6244-450f-a346-b4066d83e367
 
@@ -29,4 +41,4 @@ Content-Type: application/json
 }
 
 ### Delete user by ID
-DELETE {{url}}/users/f82ffdd2-4600-4a91-89fd-e90df0eddf31
+DELETE {{url}}/users/9feaf514-4e2d-4278-ae2f-0980d37fb0fb

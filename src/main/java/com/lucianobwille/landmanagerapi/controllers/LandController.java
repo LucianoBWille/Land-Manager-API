@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class LandController {
   @Autowired
   private UserRepository userRepository;
 
+  @CrossOrigin(origins = "*")
   @GetMapping(produces = "application/json")
   public List<Land> getAll(@RequestParam(required = false) String name) {
     if (Strings.isNotEmpty(name)) {
@@ -44,6 +46,7 @@ public class LandController {
     }
   }
 
+  @CrossOrigin(origins = "*")
   @GetMapping("{id}")
   public ResponseEntity<Object> getById(@PathVariable String id) {
 
@@ -64,6 +67,7 @@ public class LandController {
     }
   }
 
+  @CrossOrigin(origins = "*")
   @PostMapping
   public ResponseEntity<Object> save(@RequestBody LandDTO landDTO) {
     Land land = new Land();
@@ -97,6 +101,7 @@ public class LandController {
     return ResponseEntity.ok(landRepository.save(land));
   }
 
+  @CrossOrigin(origins = "*")
   @PutMapping("{id}")
   public ResponseEntity<Object> update(@PathVariable String id, @RequestBody LandDTO landDTO) {
     // validate UUID
@@ -116,6 +121,7 @@ public class LandController {
     return ResponseEntity.ok(landRepository.save(land));
   }
 
+  @CrossOrigin(origins = "*")
   @DeleteMapping("{id}")
   public ResponseEntity<Object> delete(@PathVariable String id) {
     // validate UUID

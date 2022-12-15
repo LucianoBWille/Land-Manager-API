@@ -20,8 +20,9 @@ import lombok.Data;
 @Entity 
 @Table(name = "tb_user")
 @NamedQueries({
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name LIKE :name"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email LIKE :email")
+    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name LIKE ?1"),
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email LIKE ?1"),
+    @NamedQuery(name = "User.findByNameAndPassword", query = "SELECT u FROM User u WHERE u.name LIKE ?1 AND u.password LIKE ?2")
 })
 public class User {
   @Id
