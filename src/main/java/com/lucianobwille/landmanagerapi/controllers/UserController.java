@@ -53,24 +53,11 @@ public class UserController {
       return ResponseEntity.badRequest().body("Need to inform name and password");
     } else {
       List<User> res = userRepository.findByNameAndPassword(name, password);
-
+ 
       if (res.size() == 1) {
-        User user = res.get(0);
-        String token = "{\"id\":" + user.getId() +
-                      ",\"name\":"+user.getName() +
-                      ",\"email\":"+user.getEmail() +
-                      ",\"password\":"+user.getPassword()+
-                      ",\"createdAt\":"+user.getCreatedAt().toString()+
-                      ",\"updatedAt\":"+user.getUpdatedAt().toString()+"}";
         return ResponseEntity.ok(res.get(0));
       } else {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        //if more then one user log error
-        // if (res.size() > 0) {
-        //   System.out.println("More then one user with same name and password");
-        // } else {
-        //   System.out.println("User not found");
-        // }
       }
     }
   }
